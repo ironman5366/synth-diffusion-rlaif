@@ -12,5 +12,6 @@ tiktoken = "*"
 matplotlib = "*"
 einops = "*"
 transformers-stream-generator = "*"
+tqdm = "*"
 
 [dev-packages]

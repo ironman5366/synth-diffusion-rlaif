@@ -9,6 +9,8 @@ Basic idea:
 from torch.utils.data import DataLoader
 from datasets import load_dataset
 from pathlib import Path
+from tqdm import tqdm
+
 
 from accelerate import Accelerator
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -67,7 +69,7 @@ loader = DataLoader(dataset, batch_size=1,
 agree_with_human = 0
 total = 0
 
-for batch in loader:
+for batch in tqdm(loader):
     # TODO: batch this later
     for it in batch:
         prompt = f"Which of these images has better aesthetic quality, and best fits the prompt, '{caption}'."
@@ -90,6 +92,8 @@ for batch in loader:
         if response == better_image:
             agree_with_human += 1
 
+        print(f"AI response: {response}, human response: {better_image}, agree: {response == better_image}")
+
         total += 1
 
-        print(it)
+print(f"Agree with human: {agree_with_human}, total: {total}, percent: {agree_with_human/total}")
