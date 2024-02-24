@@ -82,6 +82,8 @@ for batch in tqdm(loader):
             print(f"AI response: {response}, human response: {better_image}, agree: {response == better_image}")
 
         total += 1
+        if total > 100:
+            break
 
 
 for prompt_key, accuracy in prompt_accuracy.items():
