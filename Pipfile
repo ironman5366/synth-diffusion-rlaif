@@ -14,5 +14,7 @@ einops = "*"
 transformers-stream-generator = "*"
 tqdm = "*"
 python-dotenv = "*"
+pydantic = "*"
+redis = {extras = ["hiredis"], version = "*"}
 
 [dev-packages]

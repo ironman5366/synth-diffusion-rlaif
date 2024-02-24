@@ -5,19 +5,32 @@ Basic idea:
 - See what method aligns best with humans
 - Throw that into DRLX
 """
-
+import uuid
 from torch.utils.data import DataLoader
 from datasets import load_dataset
 from collections import defaultdict
 from tqdm import tqdm
 from accelerate import Accelerator
 from tempfile import NamedTemporaryFile
-from llava import label_slice
+from redis_rpc import queue_label_request, LabelRequestMessage, block_wait_response
 
 #dataset = load_dataset("yuvalkirstain/pickapic_v2")
 dataset = load_dataset("kashif/pickascore", split="validation")
 
 accelerator = Accelerator()
+
+
+def label_slice_rpc(prompt: str, image_paths: list[str]):
+    request_id = str(uuid.uuid4())
+    queue_label_request(
+        LabelRequestMessage(
+            id=request_id,
+            prompt=prompt,
+            image_paths=image_paths,
+        )
+    )
+    return block_wait_response(request_id).label
+
 
 def collate_fn(examples):
     cleaned_data = []
@@ -63,7 +76,7 @@ for batch in tqdm(loader):
 
             print(f"Comparing images {it['image_0_path']} and {it['image_1_path']} with {prompt}")
 
-            response = label_slice(
+            response = label_slice_rpc(
                 prompt,
                 image_paths=[it["image_0_path"], it["image_1_path"]],
             )
@@ -82,8 +95,6 @@ for batch in tqdm(loader):
             print(f"AI response: {response}, human response: {better_image}, agree: {response == better_image}")
 
         total += 1
-        if total > 100:
-            break
 
 
 for prompt_key, accuracy in prompt_accuracy.items():
