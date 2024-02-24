@@ -13,5 +13,6 @@ matplotlib = "*"
 einops = "*"
 transformers-stream-generator = "*"
 tqdm = "*"
+python-dotenv = "*"
 
 [dev-packages]
