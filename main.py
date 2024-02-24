@@ -72,11 +72,14 @@ total = 0
 for batch in tqdm(loader):
     # TODO: batch this later
     for it in batch:
+
+        caption = it["caption"]
+
         prompt = f"Which of these images has better aesthetic quality, and best fits the prompt, '{caption}'."
         "Output '1' if the first image is better, '2' if the "
         "second image is better. Only output '1' or '2', do not output anything else"
         print(f"Comparing images {it['image_0_path']} and {it['image_1_path']} with {prompt}")
-        caption = it["caption"]
+
         response = label_slice(
             prompt,
             image_paths=[it["image_0_path"], it["image_1_path"]],
