@@ -81,8 +81,7 @@ for batch in tqdm(loader):
 
             print(f"AI response: {response}, human response: {better_image}, agree: {response == better_image}")
 
-            total += 1
-    break
+        total += 1
 
 for prompt_key, accuracy in prompt_accuracy.items():
     print(f"Prompt {prompt_key} accuracy: {accuracy} / {total}, {accuracy / total}")
