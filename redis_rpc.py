@@ -5,7 +5,7 @@ import redis
 from pydantic import BaseModel
 
 REDIS_HOST="localhost"
-REDIS_PORT="63679"
+REDIS_PORT="6379"
 
 
 class LabelRequestMessage(BaseModel):
