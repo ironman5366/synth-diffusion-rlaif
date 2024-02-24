@@ -75,9 +75,10 @@ for batch in tqdm(loader):
 
         caption = it["caption"]
 
-        prompt = f"Which of these images has better aesthetic quality, and best fits the prompt, '{caption}'."
-        "Output '1' if the first image is better, '2' if the "
-        "second image is better. Only output '1' or '2', do not output anything else"
+        prompt = (f"Which of these images has better aesthetic quality, and best fits the prompt, '{caption}'. "
+                  f"Output '1' if the first image is better, '2' if the "
+                  f"second image is better. Only output '1' or '2', do not output anything else")
+
         print(f"Comparing images {it['image_0_path']} and {it['image_1_path']} with {prompt}")
 
         response = label_slice(
@@ -90,6 +91,7 @@ for batch in tqdm(loader):
         else:
             better_image = "2"
 
+        print(response)
         assert response in {"1", "2"}, "AI Bad :("
 
         if response == better_image:
