@@ -88,7 +88,7 @@ prompt_accuracy = defaultdict(int)
 for batch in tqdm(loader):
     # TODO: batch this later
     for it in batch:
-        for prompt_key, prompt_fn in prompt_options:
+        for prompt_key, prompt_fn in prompt_options.items():
             caption = it["caption"]
             prompt = prompt_fn(caption)
 
