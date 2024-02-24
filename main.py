@@ -18,7 +18,7 @@ from transformers.generation import GenerationConfig
 from tempfile import NamedTemporaryFile
 
 
-MODEL_FOLDER = Path("/Users/will/Projects/krea/video_pipeline/data/models/")
+MODEL_FOLDER = Path("/data/video-pipeline-data/models/")
 
 accelerator = Accelerator()
 
@@ -27,7 +27,7 @@ tokenizer = AutoTokenizer.from_pretrained(
 )
 model = AutoModelForCausalLM.from_pretrained(
     "Qwen/Qwen-VL-Chat",
-    device_map="cpu",
+    device_map="cuda",
     trust_remote_code=True,
     cache_dir=MODEL_FOLDER,
 ).eval()
