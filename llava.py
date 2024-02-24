@@ -15,7 +15,7 @@ processor = AutoProcessor.from_pretrained("llava-hf/llava-1.5-7b-hf", cache_dir=
 def label_slice(prompt: str, image_paths: list[str]) -> str:
     prompt = f"f{'<image>' * len(image_paths)}\nUSER: {prompt}\nASSISTANT:"
     images = [Image.open(im) for im in image_paths]
-    inputs = processor(text=prompt, images=images, return_tensors="pt")
+    inputs = processor(text=prompt, images=images, return_tensors="pt").to(model.device)
 
     # Generate
     generate_ids = model.generate(**inputs, max_new_tokens=100)
