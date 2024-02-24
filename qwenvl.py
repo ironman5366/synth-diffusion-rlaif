@@ -1,17 +1,24 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.generation import GenerationConfig
+from dotenv import load_dotenv
+from pathlib import Path
+import os
+
+load_dotenv()
+
+MODEL_DIR = Path(os.environ["MODEL_DIR"])
 
 tokenizer = AutoTokenizer.from_pretrained(
-    "Qwen/Qwen-VL-Chat", trust_remote_code=True, cache_dir=MODEL_FOLDER
+    "Qwen/Qwen-VL-Chat", trust_remote_code=True, cache_dir=MODEL_DIR
 )
 model = AutoModelForCausalLM.from_pretrained(
     "Qwen/Qwen-VL-Chat",
     device_map="cuda",
     trust_remote_code=True,
-    cache_dir=MODEL_FOLDER,
+    cache_dir=MODEL_DIR,
 ).eval()
 model.generation_config = GenerationConfig.from_pretrained(
-    "Qwen/Qwen-VL-Chat", trust_remote_code=True, cache_dir=MODEL_FOLDER
+    "Qwen/Qwen-VL-Chat", trust_remote_code=True, cache_dir=MODEL_DIR
 )
 
 

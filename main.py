@@ -8,11 +8,11 @@ Basic idea:
 
 from torch.utils.data import DataLoader
 from datasets import load_dataset
-from pathlib import Path
 from collections import defaultdict
 from tqdm import tqdm
 from accelerate import Accelerator
 from tempfile import NamedTemporaryFile
+from llava import label_slice
 
 #dataset = load_dataset("yuvalkirstain/pickapic_v2")
 dataset = load_dataset("kashif/pickascore", split="validation")
@@ -38,7 +38,7 @@ loader = DataLoader(dataset, batch_size=1,
 agree_with_human = 0
 total = 0
 
-constraint_suffix =("Output '1' if the first image is better, '2' if the second image is better. "
+constraint_suffix = ("Output '1' if the first image is better, '2' if the second image is better. "
                     "Only output '1' or '2', do not output anything else")
 
 def base_caption(caption: str):
@@ -82,6 +82,7 @@ for batch in tqdm(loader):
             print(f"AI response: {response}, human response: {better_image}, agree: {response == better_image}")
 
         total += 1
+
 
 for prompt_key, accuracy in prompt_accuracy.items():
     print(f"Prompt {prompt_key} accuracy: {accuracy} / {total}, {accuracy / total}")
