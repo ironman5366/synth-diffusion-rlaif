@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+clip = {git = "git+https://github.com/openai/CLIP.git"}
+datasets = "*"
+accelerate = "*"
+transformers = "*"
+tiktoken = "*"
+matplotlib = "*"
+einops = "*"
+transformers-stream-generator = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
+python_full_version = "3.11.6"
