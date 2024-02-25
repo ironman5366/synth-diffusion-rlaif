@@ -5,6 +5,7 @@ Basic idea:
 - See what method aligns best with humans
 - Throw that into DRLX
 """
+import json
 import uuid
 from torch.utils.data import DataLoader
 from datasets import load_dataset
@@ -96,6 +97,8 @@ for batch in tqdm(loader):
 
         total += 1
 
-
 for prompt_key, accuracy in prompt_accuracy.items():
     print(f"Prompt {prompt_key} accuracy: {accuracy} / {total}, {accuracy / total}")
+
+with open("prompt_accuracy.json", "w") as f:
+    f.write(json.dumps(prompt_accuracy))

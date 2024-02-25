@@ -15,6 +15,6 @@ transformers-stream-generator = "*"
 tqdm = "*"
 python-dotenv = "*"
 pydantic = "*"
-redis = {extras = ["hiredis"], version = "*"}
+redis = {extras = ["hiredis"] }
 
 [dev-packages]
